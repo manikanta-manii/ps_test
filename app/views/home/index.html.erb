@@ -1,0 +1,30 @@
+<% if current_user %>
+
+       <p>Hello <%= current_user.email %></p><br>
+       <p>You are Role: <%= current_user.role %></p><br>
+       <%= link_to "Log Out", destroy_user_session_path, 'data-turbo-method': :delete %>
+       
+       <% if current_user.admin? %>
+          <!-- render admin dashboard -->
+         <p>HI ADMIN = User Total count <%= User.count %></p>
+       <% end %>
+        <% if current_user.doctor? %>
+        <!-- render doctor dashboard -->
+         <p>Hi doctor ! how r u ?</p>
+       <% else %>
+       <!-- render User - Patient dashboard -->
+          <h2> ALL AVAILABLE DOCTORS</h2>
+          <% @doctors.each do |doc|%>
+            <%= User.find(doc.user_id).email%>
+            <br>
+          <% end%>
+        
+       <%end%>
+    
+     <% else %>
+       <p>You are not signed in</p>
+       <p>
+         <%= link_to "Sign up", new_user_registration_path %><br>
+         <%= link_to "Login", new_user_session_path %>
+       </p>
+     <% end %>
