@@ -16,6 +16,9 @@
           <h2> ALL AVAILABLE DOCTORS</h2>
           <% @doctors.each do |doc|%>
             <%= User.find(doc.user_id).email%>
+            <% DoctorSlot.where(doctors_id:doc.id).each do |el|%>
+            <%= Slot.where(id:el.slots_id).pluck(:timings)%>
+            <%end%>
             <br>
           <% end%>
         

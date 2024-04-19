@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index 
-    @doctors = Doctor.where(available:true)
+    @doctors = Doctor.all
+    
   end
 
 end
